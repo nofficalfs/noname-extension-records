@@ -119,7 +119,7 @@ game.import("extension", (lib, game, ui, get, ai, _status) => {
 				}, 50);
 			}).then(_void => {
 				const bar = ui.menuContainer.firstElementChild.querySelector(".menu-tab");
-				const extDivList = menuBar.childNodes[4]._link.childNodes[0];
+				const extDivList = bar.childNodes[4]._link.childNodes[0];
 				const left = Array.from(extDivList.childNodes).find(
 					div => div.innerHTML === "Records"
 				);
@@ -134,8 +134,10 @@ game.import("extension", (lib, game, ui, get, ai, _status) => {
 		}];
 		const onover = result => {
 			let cache = env.get("cache");
-			const player = game.me,
-				names = [player.name1, player.name2].filter(item => item != undefined);
+			const players = game.filterPlayer2(current => current == game.me || current.isUnderControl()),
+				names = players.reduce((result, current) => 
+					result.concat(["name1", "name2"].filter(name => 
+						name in current).map(name => current[name])), []);
 
 			names.forEach(name => {
 				if (!(name in cache)) cache[name] = {

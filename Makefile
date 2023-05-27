@@ -13,7 +13,7 @@ BUILD 			:= 1
 YEAR 			:= 2023
 MONTH 			:= 05
 DAY 			:= 27
-TIME 			:= 02
+TIME 			:= 03
 
 
 PACKAGE_NAME 	:= ${NAME}
@@ -54,7 +54,7 @@ pack: ${PACKAGE}
 .PHONY: mkdir
 
 mkdir: 
-	mkdir out
+	mkdir -p out
 
 zip: mkdir
 	zip -P ${DESCRIPT} -r "out/${FILE_NAME}.zip" ${FILE} ${DIR}
