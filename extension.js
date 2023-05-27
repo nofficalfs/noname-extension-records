@@ -162,14 +162,14 @@ game.import("extension", (lib, game, ui, get, ai, _status) => {
 			game.ensureDirectory("cache", resolve);
 		}).then(_void => new Promise(resolve =>
 			game.readFile("cache/records.bin", resolve, resolve)
-		)).then(config => new Promise(resolve => {
+		)).then(cache => new Promise(resolve => {
 			let result = {};
 
-			if (Buffer.isBuffer(config) || config instanceof ArrayBuffer) {
-				let decoder = new TextDecoder();
-				let content = Buffer.from(decoder.decode(config), "base64");
+			if (cache instanceof ArrayBuffer || (typeof Buffer != "undefined" && Buffer.isBuffer(cache))) {
+				const decoder = new TextDecoder(),
+					content = decoder.decode(cache);
 
-				result = JSON.parse(content.map(code => code ^ 178).toString());
+				result = JSON.parse(decode(content));
 			}
 
 			resolve(result);
@@ -180,16 +180,22 @@ game.import("extension", (lib, game, ui, get, ai, _status) => {
 		env.set("promise", promise);
 	};
 
+	const encode = json => (typeof Buffer != "undefined") ? 
+		Buffer.from(json).map(code => code ^ 178).toString("base64")
+		: btoa(json.split("").map(char => char.charCodeAt(0) ^ 178).join());
+
 	const saveCache = cache => {
 		new Promise(resolve => {
 			game.ensureDirectory("cache", resolve);
 		}).then(_void => new Promise(resolve => {
-			let json = JSON.stringify(cache);
-			console.log(json);
-			const str = Buffer.from(json).map(code => code ^ 178).toString("base64");
-			game.writeFile(str.replace(/\=+$/, ""), "cache", "records.bin", resolve);
+			const json = JSON.stringify(cache);
+			game.writeFile(encode(json).replace(/\=+$/, ""), "cache", "records.bin", resolve);
 		}));
 	};
+
+	const decode = content => (typeof Buffer != "undefined") ? 
+		Buffer.from(content, "base64").map(code => code ^ 178).toString()
+		: atob(content.split("").map(char => char.charCodeAt(0) ^ 178).join());
 
 	const modifyDisplay = (cache, name) => {
 		if (!env.has(name))

@@ -7,13 +7,13 @@
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 NAME 			:= Records
-BRANCH 			:= Master
+BRANCH 			:= Development
 BUILD 			:= 1
 
 YEAR 			:= 2023
 MONTH 			:= 05
 DAY 			:= 27
-TIME 			:= 01
+TIME 			:= 02
 
 
 PACKAGE_NAME 	:= ${NAME}
