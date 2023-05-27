@@ -1,0 +1,19 @@
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+# This File is From Noname Unofficial Free Software
+# Licensed under GNU GENERAL PUBLIC LICENSE Version 3
+# File: .gitlab-ci.yml (nofficalfs/noname-extension/records/.gitlab-ci.yml)
+# Content:
+# Copyright (c) 2023 nofficalfs All rights reserved
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+include:
+  - template: Security/SAST.gitlab-ci.yml
+
+stages:
+  - test
+
+sast:
+  stage: test
+  artifacts:
+    paths:
+      - gl-sast-report.json

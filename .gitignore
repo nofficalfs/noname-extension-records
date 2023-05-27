@@ -1,0 +1,11 @@
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+# This File is From Noname Unofficial Free Software
+# Licensed under GNU GENERAL PUBLIC LICENSE Version 3
+# File: .gitignore (nofficalfs/noname-extension/records/.gitignore)
+# Content:	
+# Copyright (c) 2023 nofficalfs All rights reserved
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+.DS_STORE
+
+out/*
